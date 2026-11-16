@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>محاكي جاهزية PMP · جامعة الأميرة نورة بنت عبدالرحمن</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --sunk:#E8ECF2; --fg:#132235; --muted:#56657A; --line:#D5DCE6;
+  --accent:#0b4f3b; --accent-ink:#FFFFFF; --accent-soft:#E2F2EA;
+  --gold:#B7832F;
+  --above:#1F7A57; --target:#5B9A3C; --below:#C58A1B; --needs:#B8432F;
+  --above-soft:#E2F2EA; --target-soft:#ECF4E3; --below-soft:#FBF1DC; --needs-soft:#F8E4DF;
+  --display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;
+  --body:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1722; --surface:#172231; --sunk:#1E2B3C; --fg:#E6ECF3; --muted:#9AA9BC; --line:#2C3B4F;
+  --accent:#4FC08E; --accent-ink:#0C1520; --accent-soft:#163628; --gold:#D9A856;
+  --above:#4FC08E; --target:#93C76F; --below:#E5B04E; --needs:#EC7C66;
+  --above-soft:#163628; --target-soft:#22331A; --below-soft:#3A2D12; --needs-soft:#3D1F19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1722; --surface:#172231; --sunk:#1E2B3C; --fg:#E6ECF3; --muted:#9AA9BC; --line:#2C3B4F;
+  --accent:#4FC08E; --accent-ink:#0C1520; --accent-soft:#163628; --gold:#D9A856;
+  --above:#4FC08E; --target:#93C76F; --below:#E5B04E; --needs:#EC7C66;
+  --above-soft:#163628; --target-soft:#22331A; --below-soft:#3A2D12; --needs-soft:#3D1F19; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.75;direction:rtl}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--display);line-height:1.35;text-wrap:balance;margin:0}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;flex-direction:column;gap:10px;padding-block:12px}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand h1{font-size:1.15rem}
+.brand span{color:var(--muted);font-size:.85rem}
+nav.path{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+nav.path a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--muted);font-size:.8rem;line-height:1.3;padding:6px 8px;border-radius:8px;border-top:3px solid var(--line);min-width:0}
+nav.path a b{font-family:var(--display);font-weight:600;color:inherit;font-size:.72rem;letter-spacing:.02em}
+nav.path a.done{border-top-color:var(--accent);color:var(--fg)}
+nav.path a.on{border-top-color:var(--gold);background:var(--accent-soft);color:var(--fg)}
+@media (max-width:520px){nav.path a{font-size:.7rem;padding:5px 4px} nav.path a b{display:none}}
+
+main{padding-block:28px 64px}
+section.view{display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-family:var(--display);font-size:.8rem;font-weight:600;color:var(--gold);letter-spacing:.03em}
+.lead{font-size:1.05rem;color:var(--muted);max-width:62ch}
+.view > header{display:flex;flex-direction:column;gap:8px}
+.view > header h2{font-size:1.65rem}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.university-header{display:flex;align-items:center;justify-content:space-between;gap:15px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;flex-wrap:wrap}
+.uni-logo-text{display:flex;align-items:center;gap:15px}
+.uni-logo-text img{height:50px;width:auto}
+.uni-logo-text div{display:flex;flex-direction:column;gap:2px}
+.uni-logo-text b{font-family:var(--display);font-size:1.05rem;color:var(--accent)}
+.uni-logo-text span{font-size:.85rem;color:var(--muted)}
+
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fact strong{font-family:var(--display);font-size:1.5rem;font-variant-numeric:tabular-nums;color:var(--accent)}
+.fact span{color:var(--muted);font-size:.88rem}
+@media (max-width:600px){.facts{grid-template-columns:1fr}}
+
+.weights{display:flex;height:34px;border-radius:8px;overflow:hidden;font-size:.82rem;font-weight:600}
+.weights div{display:flex;align-items:center;justify-content:center;color:var(--accent-ink);white-space:nowrap;padding:0 6px;min-width:0;overflow:hidden}
+
+.video{border-radius:var(--r);overflow:hidden;background:var(--sunk);border:1px dashed var(--line);aspect-ratio:16/9;max-width:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}
+.video.has{border-style:solid;padding:0;background:#000}
+.video iframe{width:100%;height:100%;border:0}
+.video .ph{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted)}
+.play{width:62px;height:62px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
+.play::after{content:"";border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent var(--accent-ink);margin-left:4px}
+.video-link{font-size:.9rem}
+a{color:var(--accent)}
+
+ol.steps{list-style:none;padding:0;margin:0;display:grid;gap:10px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+ol.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:10px 20px;border-radius:999px;font-weight:600}
+.btn:hover{filter:brightness(.82)}
+.btn.ghost:hover{background:var(--accent);color:var(--accent-ink);filter:none}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.note{font-size:.88rem;color:var(--muted)}
+.callout{border-inline-start:4px solid var(--gold);background:var(--surface);padding:12px 16px;border-radius:0 var(--r) var(--r) 0;font-size:.95rem}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab,.chip{border:1.5px solid var(--fg);background:var(--surface);color:var(--fg);padding:6px 16px;border-radius:999px;font-size:.9rem;font-weight:500;line-height:1.5;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background .15s,color .15s,border-color .15s}
+.tab:hover,.chip:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tab[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip::before{content:"←";font-weight:700}
+.domain-group{display:flex;flex-direction:column;gap:10px}
+.domain-group h3{font-size:1.1rem;display:flex;gap:8px;align-items:baseline}
+.domain-group h3 small{font-family:var(--body);font-weight:400;color:var(--muted);font-size:.85rem}
+details.card{scroll-margin-top:150px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+details.card[open]{border-color:var(--accent)}
+details.card.flag{border-inline-start:4px solid var(--needs)}
+details.card summary{list-style:none;display:flex;gap:12px;align-items:center;padding:14px 16px;cursor:pointer}
+details.card summary::-webkit-details-marker{display:none}
+.code{font-family:var(--display);font-weight:600;font-size:.85rem;background:var(--accent-soft);color:var(--accent);padding:2px 10px;border-radius:6px;white-space:nowrap}
+.card-title{font-weight:600;flex:1;min-width:0}
+.chev{width:10px;height:10px;border-inline-start:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .2s}
+details[open] .chev{transform:rotate(135deg)}
+.pill{font-size:.75rem;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.pill.need{background:var(--needs-soft);color:var(--needs)}
+.card-body{padding:0 16px 16px;display:grid;gap:12px}
+.card-body .blk{display:grid;gap:2px}
+.card-body .blk b{font-family:var(--display);font-size:.8rem;font-weight:600;color:var(--muted)}
+.card-body .rule{background:var(--accent-soft);border-radius:8px;padding:10px 12px}
+.card-body .trap{background:var(--needs-soft);border-radius:8px;padding:10px 12px}
+.formula{font-family:ui-monospace,Consolas,monospace;direction:ltr;unicode-bidi:isolate;display:inline-block;background:var(--sunk);padding:0 6px;border-radius:4px}
+
+.exam-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.timer{font-family:var(--display);font-variant-numeric:tabular-nums;font-size:1.25rem;font-weight:600;background:var(--surface);border:1px solid var(--line);padding:4px 14px;border-radius:8px;direction:ltr}
+.timer.low{color:var(--needs);border-color:var(--needs)}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:.8rem;font-weight:600;font-variant-numeric:tabular-nums}
+.dot.ans{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-soft)}
+.dot.cur{border:2px solid var(--gold);color:var(--fg)}
+.q-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.q-text{font-size:1.12rem;font-weight:500}
+.opts{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;text-align:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;color:var(--fg)}
+.opt .k{font-family:var(--display);font-weight:700;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.opt:hover{border-color:var(--accent)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.confirm{display:grid;gap:10px;background:var(--below-soft);border:1px solid var(--below);border-radius:var(--r);padding:14px 16px}
+
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.ring{width:120px;height:120px}
+.ring text{font-family:var(--display);font-weight:700;fill:var(--fg)}
+.verdict h3{font-size:1.4rem}
+.verdict.ok h3{color:var(--above)}
+.verdict.no h3{color:var(--needs)}
+@media (max-width:520px){.verdict{grid-template-columns:1fr;justify-items:start}}
+.dom-table{display:grid;gap:12px}
+.dom{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px}
+.dom-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.dom-head b{font-family:var(--display);font-size:1.05rem}
+.dom-head span{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem}
+.scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.scale div{font-size:.72rem;text-align:center;padding:6px 2px;border-radius:6px;background:var(--sunk);color:var(--muted);line-height:1.3}
+.scale div.hit.l-above{background:var(--above);color:#fff}
+.scale div.hit.l-target{background:var(--target);color:#fff}
+.scale div.hit.l-below{background:var(--below);color:#1b1408}
+.scale div.hit.l-needs{background:var(--needs);color:#fff}
+.dom-cards{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.88rem}
+.review{display:grid;gap:10px}
+.rv{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:8px}
+.rv.ok{border-inline-start:4px solid var(--above)}
+.rv.bad{border-inline-start:4px solid var(--needs)}
+.rv.skip{border-inline-start:4px solid var(--below)}
+.rv-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+.tag{font-weight:600;padding:1px 10px;border-radius:999px;font-size:.78rem}
+.tag.ok{background:var(--above-soft);color:var(--above)}
+.tag.bad{background:var(--needs-soft);color:var(--needs)}
+.tag.skip{background:var(--below-soft);color:var(--below)}
+.rv .yours{color:var(--muted);font-size:.92rem}
+.rv .best{font-size:.95rem}
+.pattern{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:6px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+h3.sec{font-size:1.15rem}
+.welcome-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.welcome-grid .panel{display:grid;gap:6px;align-content:start}
+@media (max-width:600px){.welcome-grid{grid-template-columns:1fr}}
+.team-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.92rem}
+.team-table th,.team-table td{border:1px solid var(--line);padding:10px 12px;text-align:right}
+.team-table th{background:var(--sunk);font-family:var(--display)}
+.selectable{user-select:all;direction:ltr;unicode-bidi:isolate}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head><body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><h1>محاكي جاهزية PMP</h1><span>نموذج أولي · 15 سؤالًا قائمًا على السيناريوهات</span></div>
+    <nav class="path" id="path" aria-label="مراحل المحاكي">
+      <a href="#welcome" data-v="welcome"><b>٠</b>من نحن</a>
+      <a href="#intro" data-v="intro"><b>١</b>الشهادة</a>
+      <a href="#register" data-v="register"><b>٢</b>التسجيل</a>
+      <a href="#cards" data-v="cards"><b>٣</b>البطاقات</a>
+      <a href="#exam" data-v="exam"><b>٤</b>الاختبار</a>
+      <a href="#report" data-v="report"><b>٥</b>التقرير</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<script>
+/* ================= إعدادات الفريق والمشروع الرسمية ================= */
+const VIDEOS = {
+  importance: { title: "لماذا شهادة PMP؟", url: "" },
+  register:   { title: "طريقة التسجيل في اختبار PMP", url: "" }
+};
+const EXAM_MINUTES = 20;
+const PASS_PERCENT = 70; 
+
+const PROJECT_INFO = {
+  title: "تصميم وتطوير نموذج أولي لاختبار محاكٍ تشخيصي لشهادة إدارة المشاريع الاحترافية (PMP)",
+  category: "مشروع تصميم تعليمي معتمد على التكنولوجيا - نموذج ADDIE ضمن مجموعات عمليات إدارة المشاريع",
+  period: "10 سبتمبر 2026 – 10 نوفمبر 2026 (44 يوم عمل)",
+  university: "جامعة الأميرة نورة بنت عبدالرحمن",
+  college: "كلية التربية والتنمية البشرية",
+  program: "ماجستير تصميم التعليم والتكنولوجيا"
+};
+
+const TEAM_MEMBERS = [
+  { name: "د. عبير العجلان", role: "الراعي التنفيذي للمشروع (اعتماد وثيقة التصميم وبوابات المراحل)" },
+  { name: "أمل الورهي", role: "مديرة المشروع ، مصممة الاختبار المحاكي ومطورة الموقع" },
+  { name: "سمر الدرسوني", role: "محللة ومصممة تعليمية - مسؤولة الجودة العلمية" },
+  { name: "فهدة الصليهم", role: "مصممة جرافيك ومنتجة وسائط متعددة" },
+  { name: "أمل العتيبي", role: "مصممة تجربة المستخدم - مسؤولة الجودة التقنية والتقويم" }
+];
+const P = n => "%" + n;
+
+/* ================= المجالات والبطاقات والأسئلة ================= */
+const DOMAINS = {
+  people:  { name: "الأشخاص",      weight: 33, max: 5 },
+  process: { name: "العمليات",     weight: 41, max: 6 },
+  biz:     { name: "بيئة الأعمال", weight: 26, max: 4 }
+};
+const LEVELS = [
+  { id: "above",  name: "فوق المستهدف",  min: 85 },
+  { id: "target", name: "ضمن المستهدف",  min: 70 },
+  { id: "below",  name: "دون المستهدف",  min: 50 },
+  { id: "needs",  name: "يحتاج تحسين",   min: 0  }
+];
+const MISC = {
+  impose:   { name: "الفرض والتصرف الفردي", msg: "اخترتِ في {n} أسئلة قرارًا يتخذه مدير المشروع وحده. في PMP يُشرك مدير المشروع المعنيين ويحلل الموقف قبل القرار." },
+  ignore:   { name: "التجاهل أو التأجيل",   msg: "اخترتِ في {n} أسئلة تأجيل المشكلة أو تركها. في PMP تُعالج المشكلات مبكرًا قبل أن يكبر أثرها." },
+  escalate: { name: "التصعيد المبكر",       msg: "اخترتِ في {n} أسئلة رفع الأمر إلى الراعي. يحاول مدير المشروع الحل بنفسه أولًا، ويُصعّد حين يتجاوز الأمر صلاحياته." },
+  surface:  { name: "المعالجة السطحية",     msg: "اخترتِ في {n} أسئلة إجراءً يعالج العرض لا السبب. اسألي نفسك أولًا: ما سبب المشكلة في السيناريو؟" }
+};
+
+const CARDS = [
+  { code:"ش-1", d:"people", title:"إدارة النزاعات",
+    idea:"النزاع طبيعي في أي فريق، ودور مدير المشروع أن يعالجه مبكرًا قبل أن يؤثر في العمل. أساليب التعامل خمسة: الانسحاب، والتهدئة، والتسوية، والفرض، والتعاون لحل المشكلة.",
+    rule:"ابدئي بالحوار المباشر مع الطرفين لفهم سبب الخلاف والوصول إلى حل مشترك. التصعيد آخر خيار.",
+    example:"عضوان يختلفان على طريقة تنفيذ مهمة: تجتمعين بهما، وتسمعين وجهتي النظر، وتتفقون على طريقة واحدة.",
+    trap:"الفرض أو التأجيل ينهي الخلاف مؤقتًا، لكن السبب يبقى ويعود الخلاف." },
+  { code:"ش-2", d:"people", title:"دعم أداء الفريق وتوجيهه",
+    idea:"في البيئة الرشيقة يعمل مدير المشروع قائدًا خادمًا: يزيل العوائق، ويوجّه الأعضاء، ويمكّنهم من الأداء.",
+    rule:"عند ضعف أداء عضو أو انعزاله: ادعميه ووجهيه أولًا، قبل التقييم أو الاستبدال.",
+    example:"عضو جديد لا يشارك: تخصصين له وقت توجيه وتربطينه بزميل داعم.",
+    trap:"العقوبة أو الاستبدال المبكر قبل تقديم أي دعم." },
+  { code:"ش-3", d:"people", title:"إشراك أصحاب المصلحة",
+    idea:"سجل أصحاب المصلحة يوثق اهتمام كل منهم وتأثيره، وخطة الإشراك وخطة التواصل تحددان ما يصله ومتى وكيف.",
+    rule:"عند عدم رضا صاحب مصلحة: راجعي سجله وخطة التواصل لفهم احتياجه، ثم عدّلي طريقة إشراكه.",
+    example:"صاحب مصلحة مؤثر لا يعرف ما يجري: تكتشفين أنه يحتاج ملخصًا أسبوعيًا قصيرًا، فتضيفينه إلى الخطة.",
+    trap:"إغراقه بكل التقارير، أو إحالته إلى مجلد، أو التصعيد قبل التحليل." },
+  { code:"ش-4", d:"people", title:"قيادة الفرق الافتراضية",
+    idea:"الفرق الموزعة تحتاج قواعد عمل مكتوبة يتفق عليها الجميع: قنوات التواصل، وأوقاته، وطريقة توثيق المتطلبات واتخاذ القرار. تُسمى اتفاقية الفريق.",
+    rule:"عند سوء الفهم المتكرر في فريق موزع: اتفقي مع الفريق على اتفاقية عمل مشتركة.",
+    example:"فريق في ثلاث مدن: تتفقون على قناة واحدة للمتطلبات، واجتماع يومي قصير، ووقت رد محدد.",
+    trap:"حلول شكلية مثل زيادة التقارير أو تقليل الاجتماعات، لا تعالج سبب سوء الفهم." },
+  { code:"ش-5", d:"people", title:"التفاوض",
+    idea:"التفاوض الجيد يبحث عن حل يحقق مصلحة الطرفين، ويستند إلى بيانات لا إلى الانطباع.",
+    rule:"عند طلب غير واقعي: اعرضي الأثر بالبيانات، وقدمي بدائل (تعديل النطاق أو الموارد أو الجدول)، واتركي القرار للراعي.",
+    example:"الراعي يطلب موعدًا مبكرًا: تعرضين أن الموعد ممكن بتقليل النطاق، أو بإضافة عضوين.",
+    trap:"القبول دون نقاش وتحميل الفريق ساعات إضافية، أو الرفض الحاد." },
+  { code:"ع-1", d:"process", title:"إدارة التغيير",
+    idea:"كل تغيير على النطاق يمر بعملية ضبط التغيير المتكاملة: توثيق الطلب، ثم تحليل أثره على النطاق والوقت والتكلفة، ثم قرار الجهة المخولة (لجنة ضبط التغيير)، ثم تحديث الخطط وإبلاغ المعنيين.",
+    rule:"لا تنفيذ ولا رفض قبل التوثيق وتحليل الأثر وقرار الجهة المخولة.",
+    example:"صاحب مصلحة يطلب ميزة جديدة: توثقينها، وتقدّرين أثرها، وتعرضينها على اللجنة.",
+    trap:"التنفيذ الفوري لإرضاء الطالب، فيحدث زحف النطاق." },
+  { code:"ع-2", d:"process", title:"قياس الأداء بالقيمة المكتسبة",
+    idea:"مؤشر أداء الجدول <span class='formula'>SPI = EV ÷ PV</span> ومؤشر أداء التكلفة <span class='formula'>CPI = EV ÷ AC</span>. القيمة المكتسبة EV دائمًا في البسط.",
+    rule:"أكبر من 1 = أداء أفضل من المخطط. أقل من 1 = أداء أسوأ. يساوي 1 = حسب الخطة.",
+    example:"SPI = 0.8 يعني تأخرًا عن الجدول، وCPI = 1.1 يعني تكلفة أقل من المخطط.",
+    trap:"عكس المعنى: اعتبار القيمة الأقل من 1 تقدمًا أو توفيرًا." },
+  { code:"ع-3", d:"process", title:"الاستجابة للمخاطر",
+    idea:"استراتيجيات الخطر السلبي خمس: التجنب (إزالة سبب الخطر)، والنقل (تحويل المسؤولية لطرف آخر بعقد أو تأمين)، والتخفيف (تقليل الاحتمال أو الأثر)، والقبول، والتصعيد (لجهة أعلى إذا تجاوز صلاحيات المشروع).",
+    rule:"اسألي: هل الإجراء يقلل احتمال الخطر أو أثره؟ إن كان كذلك فهو تخفيف.",
+    example:"خطر تأخر مراجعة الخبير: جدولة المراجعة مبكرًا وتجهيز خبير بديل = تخفيف.",
+    trap:"الخلط بين النقل والتخفيف؛ النقل يغير من يتحمل الخطر ولا يقلله بالضرورة." },
+  { code:"ع-4", d:"process", title:"إدارة الجدول والمسار الحرج",
+    idea:"المسار الحرج أطول مسار في شبكة المهام، وفائضه الزمني صفر. أي تأخير في مهامه يؤخر نهاية المشروع بالقدر نفسه.",
+    rule:"لتعويض تأخر على المسار الحرج: الضغط (إضافة موارد، بتكلفة أعلى) أو التسريع (تنفيذ مهام بالتوازي، بمخاطرة أعلى).",
+    example:"مهمة حرجة تأخرت 3 أيام: ينتهي المشروع متأخرًا 3 أيام ما لم تتخذي إجراءً.",
+    trap:"افتراض أن المهام الأخرى ستعوض التأخير تلقائيًا." },
+  { code:"ع-5", d:"process", title:"إدارة الجودة",
+    idea:"ضمان الجودة يحسّن العمليات ليمنع العيوب، وضبط الجودة يفحص المخرجات ليكتشفها قبل التسليم. المنع أقل كلفة من الفحص.",
+    rule:"العيب المكتشف يُوثق ويُصحح، ثم يُعاد التحقق من مطابقته للمعايير قبل التسليم.",
+    example:"أسئلة لا تطابق وثيقة التصميم: توثقين الملاحظات، وتصححينها، وتعيدين فحصها قبل الإطلاق.",
+    trap:"الإطلاق مع عيوب معروفة، أو تعديل المعايير لتناسب المخرج." },
+  { code:"ع-6", d:"process", title:"اختيار منهجية المشروع",
+    idea:"التنبؤي يناسب المتطلبات الواضحة المستقرة، والرشيق يناسب المتطلبات المتغيرة التي تحتاج تجربة وتغذية راجعة متكررة، والهجين يطبق الأنسب لكل جزء.",
+    rule:"المعيار هو درجة وضوح المتطلبات واستقرارها، لا حداثة الأسلوب.",
+    example:"المحتوى العلمي للاختبار ثابت فيُخطط تنبؤيًا، وواجهة المنصة تُطور بدورات قصيرة.",
+    trap:"اختيار الرشيق لأنه الأحدث، أو حصره في الاجتماعات اليومية." },
+  { code:"ب-1", d:"biz", title:"الامتثال للمتطلبات التنظيمية",
+    idea:"الالتزام باللوائح مسؤولية مدير المشروع حتى لو صدرت بعد بدء المشروع.",
+    rule:"قيّمي أثر اللائحة أولًا، ثم أدخلي التغييرات اللازمة على الخطة والمتطلبات عبر ضبط التغيير.",
+    example:"لائحة جديدة لحماية البيانات: تحددين ما يجب تغييره في المنصة، وتعرضينه طلب تغيير.",
+    trap:"تجاهل اللائحة أو تأجيلها، أو إيقاف المشروع قبل تقييم الأثر." },
+  { code:"ب-2", d:"biz", title:"مواءمة المشروع مع الاستراتيجية",
+    idea:"المشروع وسيلة لتحقيق استراتيجية المنظمة، ودراسة الجدوى هي ما يبرر استمراره.",
+    rule:"إذا تغيرت أولويات المنظمة: راجعي مواءمة المشروع مع الراعي، وحدّثي دراسة الجدوى والنطاق عند الحاجة.",
+    example:"قلّت أهمية أحد المخرجات: تعرضين على الراعي خيارات تعديل النطاق.",
+    trap:"الاستمرار دون مراجعة، أو إلغاء المخرج بقرار فردي." },
+  { code:"ب-3", d:"biz", title:"تقييم تحقق القيمة والفوائد",
+    idea:"القيمة تُقاس بالنتائج والفوائد، لا بحجم العمل المنجز. مؤشرات النجاح تُحدد مسبقًا في الميثاق وخطة إدارة الفوائد.",
+    rule:"قارني النتائج المحققة بمؤشرات النجاح والفوائد المحددة مسبقًا، وقيسي باستمرار لا في النهاية فقط.",
+    example:"عند إغلاق المرحلة: هل وصلت نسبة رضا المتدربات إلى المستهدف في الميثاق؟",
+    trap:"عدّ المهام المنجزة، أو الاكتفاء بانطباع الفريق." },
+  { code:"ب-4", d:"biz", title:"دعم التغيير التنظيمي",
+    idea:"نجاح المنتج يعتمد على تبنيه. المقاومة تقل بالإشراك المبكر، وتوضيح الفوائد، والتدريب، والدعم المستمر.",
+    rule:"أشركي المستخدمين مبكرًا، ووضحي ما يكسبونه، وقدمي تدريبًا ودعمًا بعد الإطلاق.",
+    example:"مدربون اعتادوا الطرق التقليدية: ورشة تجريبية، ثم دليل مختصر، ثم دعم مباشر أول شهر.",
+    trap:"فرض الاستخدام بقرار إداري، أو التسليم دون تدريب." }
+];
+
+const Q = [
+ { d:"people", card:"ش-1", correct:"ج",
+   text:"في اجتماع الفريق الأسبوعي، اختلف عضوان بحدة حول طريقة تنفيذ مهمة مشتركة، وبدأ الخلاف يؤثر في تعاون بقية الفريق. ما أفضل إجراء يتخذه مدير المشروع أولًا؟",
+   o:{ "أ":["تحديد الطريقة الصحيحة بنفسه وإبلاغ العضوين بها","فرض الحل ينهي النقاش مؤقتًا، لكنه لا يعالج السبب وقد يضعف التزام العضوين.","impose"],
+       "ب":["تأجيل الموضوع حتى يهدأ الطرفان","التأجيل يترك النزاع يكبر، والسيناريو يذكر أنه بدأ يؤثر في بقية الفريق.","ignore"],
+       "ج":["الاجتماع بالعضوين لفهم وجهتي النظر والوصول إلى حل مشترك","الاجتماع بالطرفين يعالج سبب الخلاف ويحافظ على العلاقة، وهذا أسلوب التعاون وحل المشكلة."],
+       "د":["رفع الأمر إلى الراعي التنفيذي","النزاع داخل الفريق مسؤولية مدير المشروع أولًا، والتصعيد يأتي بعد محاولة حله.","escalate"] } },
+ { d:"people", card:"ش-2", correct:"ب",
+   text:"انضم عضو جديد إلى فريق يعمل بأسلوب رشيق، ولاحظ مدير المشروع أنه لا يشارك في الاجتماعات اليومية ولا يطرح أسئلة. ما الإجراء الأنسب؟",
+   o:{ "أ":["تكليفه بمهام فردية بعيدًا عن الفريق","المهام الفردية تزيد انفصال العضو عن الفريق بدل أن تعالجه.","surface"],
+       "ب":["تخصيص وقت لتوجيهه وإشراكه تدريجيًا مع زميل داعم","في البيئة الرشيقة يدعم القائد الخادم اندماج العضو الجديد بالتوجيه وزميل داعم."],
+       "ج":["تقييم أدائه سلبيًا في التقرير القادم","التقييم السلبي يحكم على الأداء قبل تقديم أي دعم لعضو ما زال جديدًا.","surface"],
+       "د":["طلب استبداله بعضو أكثر خبرة","الاستبدال حل مكلف ومبكر؛ المطلوب أولًا إزالة العوائق أمام العضو.","surface"] } },
+ { d:"people", card:"ش-3", correct:"ب",
+   text:"أبلغ أحد أصحاب المصلحة المؤثرين مدير المشروع بأنه غير راضٍ لأنه لا يعرف ما يجري في المشروع. ما الخطوة الأولى؟",
+   o:{ "أ":["إرسال جميع تقارير المشروع إليه فورًا","إرسال كل التقارير لا يراعي احتياجه الفعلي، وقد يزيد عدم رضاه.","surface"],
+       "ب":["مراجعة سجل أصحاب المصلحة وخطة التواصل لفهم احتياجه وتعديل طريقة إشراكه","البداية بتحليل احتياج صاحب المصلحة في سجله وخطة التواصل، ثم تعديل طريقة إشراكه."],
+       "ج":["إبلاغه بأن التقارير متاحة في المجلد المشترك","الإحالة إلى المجلد تتجاهل أن الفجوة في طريقة التواصل لا في توفر المعلومات.","surface"],
+       "د":["طلب تدخل الراعي التنفيذي","التصعيد قبل أي تحليل سابق لأوانه، وإشراك أصحاب المصلحة من عمل مدير المشروع.","escalate"] } },
+ { d:"people", card:"ش-4", correct:"ب",
+   text:"يعمل الفريق من مدن مختلفة، وبدأت المهام تتأخر بسبب سوء فهم متكرر للمتطلبات. ما أفضل إجراء؟",
+   o:{ "أ":["زيادة عدد التقارير المكتوبة","زيادة التقارير تضيف عبئًا دون معالجة سبب سوء الفهم.","surface"],
+       "ب":["الاتفاق مع الفريق على اتفاقية عمل تحدد قنوات التواصل وأوقاته وطريقة توثيق المتطلبات","اتفاقية الفريق توحد قنوات التواصل وأوقاته وطريقة توثيق المتطلبات، فتعالج سبب سوء الفهم."],
+       "ج":["جمع الفريق في مكان واحد فورًا","جمع الفريق غالبًا غير ممكن في الفرق الموزعة، والمشكلة في طريقة التواصل لا في المكان.","surface"],
+       "د":["تقليل عدد الاجتماعات لتوفير الوقت","تقليل الاجتماعات يقلل التواصل في وقت يحتاج فيه الفريق إلى وضوح أكثر.","surface"] } },
+ { d:"people", card:"ش-5", correct:"ج",
+   text:"يرى الفريق أن موعد تسليم إحدى المراحل غير واقعي، ويطلب الراعي الالتزام به. ما الإجراء الأنسب لمدير المشروع؟",
+   o:{ "أ":["قبول الموعد وطلب ساعات عمل إضافية من الفريق","القبول مع ساعات إضافية يحمّل الفريق عبئًا غير واقعي ويعرض الجودة والمعنويات للخطر.","impose"],
+       "ب":["رفض الموعد دون نقاش","الرفض دون نقاش يضر العلاقة بالراعي ولا يقدم حلًا."],
+       "ج":["التفاوض مع الراعي بعرض البيانات والبدائل الممكنة، مثل تعديل النطاق أو الموارد","التفاوض بالبيانات والبدائل يوازن بين توقعات الراعي وقدرة الفريق، ويبني قرار الراعي على أساس واضح."],
+       "د":["تسليم جزء من العمل دون إبلاغ الراعي","تسليم جزء دون إبلاغ الراعي يخالف الشفافية والمسؤولية المهنية."] } },
+ { d:"process", card:"ع-1", correct:"ج",
+   text:"في منتصف المشروع، طلب أحد أصحاب المصلحة إضافة ميزة جديدة إلى المنتج. ما الخطوة الأولى؟",
+   o:{ "أ":["تنفيذ الميزة فورًا لإرضائه","التنفيذ الفوري دون تحليل يؤدي إلى زحف النطاق.","impose"],
+       "ب":["رفض الطلب لأنه خارج النطاق","الرفض المباشر ليس من صلاحية مدير المشروع وحده، فقد يكون التغيير مفيدًا والقرار للجهة المخولة."],
+       "ج":["توثيق الطلب وتحليل أثره على النطاق والوقت والتكلفة وعرضه على لجنة ضبط التغيير","كل طلب تغيير يُوثق ويُحلل أثره ثم يُعرض على لجنة ضبط التغيير لتقرر."],
+       "د":["إضافته إلى المرحلة القادمة دون موافقة","نقله إلى المرحلة القادمة دون موافقة تغيير غير معتمد للنطاق."] } },
+ { d:"process", card:"ع-2", correct:"أ",
+   text:"أظهر تقرير الأداء أن مؤشر أداء الجدول (SPI) يساوي 0.8 ومؤشر أداء التكلفة (CPI) يساوي 1.1. ماذا يعني ذلك؟",
+   o:{ "أ":["المشروع متأخر عن الجدول وأقل من الميزانية","SPI أقل من 1 يعني تأخرًا عن الجدول، وCPI أكبر من 1 يعني تكلفة أقل من المخطط."],
+       "ب":["المشروع متقدم عن الجدول وأعلى من الميزانية","عكستِ معنى المؤشرين؛ القيمة الأقل من 1 تعني أداءً أسوأ من المخطط، والأكبر من 1 أداءً أفضل."],
+       "ج":["المشروع متأخر عن الجدول وأعلى من الميزانية","قراءتك لـSPI صحيحة، لكن CPI أكبر من 1 يعني توفيرًا في التكلفة لا تجاوزًا."],
+       "د":["المشروع متقدم عن الجدول وأقل من الميزانية","قراءتك لـCPI صحيحة، لكن SPI أقل من 1 يعني تأخرًا لا تقدمًا."] } },
+ { d:"process", card:"ع-3", correct:"ب",
+   text:"حدد الفريق خطرًا محتملًا هو تأخر مراجعة الأسئلة من الخبير. ما الإجراء الذي يمثل استراتيجية التخفيف؟",
+   o:{ "أ":["قبول الخطر وعدم اتخاذ أي إجراء","هذا قبول للخطر، ويناسب المخاطر الصغيرة لا خطرًا يمس الجودة والجدول."],
+       "ب":["جدولة المراجعة مبكرًا وتجهيز خبير بديل","الجدولة المبكرة والخبير البديل يقللان احتمال التأخر وأثره، وهذا هو التخفيف."],
+       "ج":["نقل المراجعة بالكامل إلى جهة خارجية بعقد","هذا نقل للخطر؛ يحول المسؤولية إلى طرف آخر ولا يقلل احتماله بالضرورة."],
+       "د":["حذف مرحلة المراجعة من المشروع","هذا تجنب للخطر بحذف مصدره، وهنا يضر الجودة."] } },
+ { d:"process", card:"ع-4", correct:"ب",
+   text:"تأخرت مهمة تقع على المسار الحرج ثلاثة أيام. ما أثر ذلك على المشروع إذا لم يُتخذ أي إجراء؟",
+   o:{ "أ":["لا أثر لأن المهام الأخرى ستعوض التأخير","المهام الأخرى لا تعوض التأخير تلقائيًا؛ التعويض يحتاج إجراءً مثل الضغط أو التسريع."],
+       "ب":["يتأخر تاريخ انتهاء المشروع ثلاثة أيام","مهام المسار الحرج بلا فائض زمني، فتأخرها ثلاثة أيام يؤخر نهاية المشروع ثلاثة أيام."],
+       "ج":["يتأخر المشروع يومًا واحدًا فقط","لا يوجد فائض على المسار الحرج يمتص جزءًا من التأخر."],
+       "د":["تزيد التكلفة فقط دون أثر على الجدول","التأخر على المسار الحرج يمس الجدول مباشرة، وقد يرفع التكلفة أيضًا."] } },
+ { d:"process", card:"ع-5", correct:"ب",
+   text:"اكتشف الفريق أثناء الفحص أن بعض الأسئلة لا تطابق المعايير المحددة في وثيقة التصميم. ما الإجراء الأنسب؟",
+   o:{ "أ":["إطلاق الاختبار ثم معالجة الأخطاء لاحقًا","الإطلاق مع عيوب معروفة ينقل كلفتها إلى المتدربين ويضر سمعة المنتج.","ignore"],
+       "ب":["توثيق الملاحظات وتصحيح الأسئلة ثم إعادة فحصها قبل الإطلاق","ضبط الجودة يوثق العيوب ويصححها ثم يعيد التحقق قبل التسليم."],
+       "ج":["حذف الأسئلة غير المطابقة دون استبدالها","الحذف دون استبدال يُخل بجدول المواصفات وتوازن الاختبار.","surface"],
+       "د":["تغيير المعايير لتناسب الأسئلة","تعديل المعايير لتناسب الأسئلة يُفرغ ضبط الجودة من معناه.","surface"] } },
+ { d:"process", card:"ع-6", correct:"أ",
+   text:"يعمل المشروع بالنموذج الهجين، وطلب الراعي معرفة متى يُستخدم التخطيط التنبؤي ومتى تُستخدم المرونة. ما الإجابة الأنسب؟",
+   o:{ "أ":["التنبؤي للمخرجات الثابتة المتطلبات، والرشيق للمخرجات التي تحتاج تجربة وتغذية راجعة متكررة","النموذج الهجين يختار الأسلوب لكل جزء حسب وضوح متطلباته واستقرارها."],
+       "ب":["التنبؤي لكل المشروع، والرشيق للاجتماعات فقط","حصر المرونة في الاجتماعات يخلط بين ممارسات الرشيق وجوهره، وهو التسليم التكراري والتغذية راجعة."],
+       "ج":["الرشيق لكل المشروع لأنه الأحدث","الأحدث ليس معيارًا؛ الاختيار يقوم على طبيعة المتطلبات والمخرجات."],
+       "د":["يُختار الأسلوب عشوائيًا لكل مرحلة","اختيار المنهجية قرار مدروس بمعايير واضحة، لا عشوائي."] } },
+ { d:"biz", card:"ب-1", correct:"ب",
+   text:"صدرت لائحة تنظيمية جديدة تشترط حماية بيانات المستخدمين في المنصات التعليمية الرقمية، والمشروع في مرحلة التطوير. ما الإجراء الأول؟",
+   o:{ "أ":["تجاهل اللائحة لأنها صدرت بعد بدء المشروع","الالتزام باللوائح واجب ولو صدرت بعد بدء المشروع، وتجاهلها يعرض المنتج للمساءلة.","ignore"],
+       "ب":["تقييم أثر اللائحة على المشروع وتحديث الخطة والمتطلبات عبر عملية ضبط التغيير","الامتثال يبدأ بتقييم أثر اللائحة، ثم تحديث الخطة والمتطلبات عبر ضبط التغيير."],
+       "ج":["إيقاف المشروع نهائيًا","الإيقاف النهائي قرار متطرف يسبق تقييم الأثر، وغالبًا يمكن الامتثال بتعديلات.","impose"],
+       "د":["تأجيل التعامل معها إلى ما بعد الإغلاق","التأجيل إلى ما بعد الإغلاق يعني تسليم منتج غير ممتثل.","ignore"] } },
+ { d:"biz", card:"ب-2", correct:"ب",
+   text:"قبل منتصف المشروع، غيّرت الجهة الراعية أولوياتها الاستراتيجية بحيث قلت أهمية إحدى مخرجات المشروع. ما الإجراء الأنسب؟",
+   o:{ "أ":["الاستمرار وفق الخطة الأصلية دون تغيير","الاستمرار دون مراجعة قد يستهلك الموارد في مخرج لم يعد ذا قيمة.","ignore"],
+       "ب":["مراجعة مواءمة المشروع مع الأولويات الجديدة مع الراعي وتحديث دراسة الجدوى والنطاق عند الحاجة","تغير الاستراتيجية يستلزم مراجعة مواءمة المشروع مع الراعي وتحديث دراسة الجدوى والنطاق عند الحاجة."],
+       "ج":["إلغاء المخرج فورًا دون الرجوع لأحد","إلغاء المخرج ليس من صلاحية مدير المشروع وحده، ويحتاج موافقة الراعي.","impose"],
+       "د":["زيادة الميزانية لتعويض التغيير","زيادة الميزانية لا تعالج تغير الأولويات، وقد تزيد الهدر.","surface"] } },
+ { d:"biz", card:"ب-3", correct:"ب",
+   text:"عند إغلاق المرحلة الأولى، طلب الراعي التأكد من أن المشروع يحقق القيمة المتوقعة. ما أفضل طريقة لذلك؟",
+   o:{ "أ":["قياس عدد المهام المنجزة فقط","عدد المهام يقيس حجم العمل، لا القيمة المتحققة.","surface"],
+       "ب":["مقارنة النتائج المحققة بمؤشرات النجاح والفوائد المحددة في الميثاق","تُقاس القيمة بمقارنة النتائج بمؤشرات النجاح والفوائد المحددة في الميثاق."],
+       "ج":["سؤال الفريق عن رأيه في المشروع","رأي الفريق مفيد لكنه انطباعي، ولا يقيس الفوائد مقابل المؤشرات.","surface"],
+       "د":["الانتظار حتى نهاية المشروع لتقييم القيمة","تقييم القيمة مستمر، والانتظار للنهاية يضيع فرصة التصحيح.","ignore"] } },
+ { d:"biz", card:"ب-4", correct:"ب",
+   text:"سيُستخدم المنتج الجديد في مركز تدريب اعتاد مدربوه الطرق التقليدية، وأبدى بعضهم مقاومة للتغيير. ما الإجراء الأنسب لدعم تبني المنتج؟",
+   o:{ "أ":["فرض استخدام المنتج بقرار إداري","الفرض الإداري يضمن استخدامًا شكليًا لا تبنيًا فعليًا، وقد يزيد المقاومة.","impose"],
+       "ب":["إشراك المدربين مبكرًا وتوضيح فوائد المنتج وتقديم تدريب ودعم مستمر","الإشراك المبكر وبيان الفوائد والتدريب المستمر تقلل المقاومة وتدعم تبني المنتج."],
+       "ج":["تسليم المنتج دون أي تدريب","التسليم دون تدريب يجعل المقاومة متوقعة ويضعف الاستخدام.","surface"],
+       "د":["تأجيل الإطلاق حتى يقتنع الجميع","انتظار اقتناع الجميع يؤخر القيمة دون خطة لإقناعهم.","ignore"] } }
+];
+const LETTERS = ["أ","ب","ج","د"];
+const cardByCode = Object.fromEntries(CARDS.map(c => [c.code, c]));
+
+/* ================= الحالة ================= */
+const S = {
+  view: "welcome", seen: new Set(["welcome"]),
+  exam: null,          
+  result: null,        
+  cardFilter: "people", openCard: null, reviewFilter: "wrong"
+};
+const VIEWS = ["welcome","intro","register","cards","exam","report"];
+const app = document.getElementById("app");
+
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function levelFor(pct){ return LEVELS.find(l => pct >= l.min); }
+function ytEmbed(url){
+  const m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+  return m ? "https://www.youtube.com/embed/" + m[1] : null;
+}
+
+/* ================= العرض ================= */
+function videoBlock(v){
+  if(!v.url) return `<div class="video"><div class="ph"><div class="play" aria-hidden="true"></div><strong>${v.title}</strong><span class="note">يُضاف رابط الفيديو في إعدادات الصفحة (VIDEOS)</span></div></div>`;
+  const emb = ytEmbed(v.url);
+  return (emb ? `<div class="video has"><iframe src="${emb}" title="${v.title}" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>` :
+                `<div class="video"><div class="ph"><div class="play" aria-hidden="true"></div><strong>${v.title}</strong></div></div>`)
+       + `<p class="video-link"><a href="${v.url}" target="_blank" rel="noopener">فتح الفيديو في تبويب جديد</a></p>`;
+}
+
+function renderWelcome(){
+  const teamRows = TEAM_MEMBERS.map(m=>`<tr><td><b>${m.name}</b></td><td>${m.role}</td></tr>`).join("");
+  return `<section class="view">
+    <div class="university-header">
+      <div class="uni-logo-text">
+        <img src="assets/logo.png" alt="شعار جامعة الأميرة نورة" onerror="this.style.display='none'">
+        <div>
+          <b>${PROJECT_INFO.university}</b>
+          <span>${PROJECT_INFO.college} · ${PROJECT_INFO.program}</span>
+        </div>
+      </div>
+      <div style="font-size:0.85rem;color:var(--gold);font-weight:600">مشروع تخرج معتمد</div>
+    </div>
+    <header><span class="eyebrow">معلومات المشروع</span>
+      <h2>${PROJECT_INFO.title}</h2>
+      <p class="lead">${PROJECT_INFO.category}</p>
+      <p class="note">فترة المشروع: <b>${PROJECT_INFO.period}</b></p>
+    </header>
+    <p class="callout">محاكي جاهزية PMP منصة تعتمد على أداة تشخيص، تساعد الراغبين في الحصول على شهادة PMP الاحترافية للتحقق من جاهزيتهم للدخول للاختبار الفعلي، تفاديًا لدفع الرسوم قبل التأكد من الاستعداد.</p>
+    <div class="panel" style="display:grid;gap:12px">
+      <h3 class="sec">فريق العمل وأدوار المشروع</h3>
+      <table class="team-table">
+        <thead><tr><th>العضو / الدور</th><th>المسؤولية في المشروع</th></tr></thead>
+        <tbody>${teamRows}</tbody>
+      </table>
+    </div>
+    <div class="panel" style="display:grid;gap:10px">
+      <h3 class="sec">تعليمات الاستخدام</h3>
+      <ol class="steps">
+        <li><div><strong>التعريف بالشهادة:</strong> فيديو عن أهمية شهادة PMP ومجالات الاختبار.</div></li>
+        <li><div><strong>التسجيل:</strong> فيديو يشرح خطوات التسجيل في الاختبار.</div></li>
+        <li><div><strong>البطاقات التعليمية:</strong> تبدأ ببطاقات الأشخاص، ثم العمليات، ثم بيئة الأعمال. تشرح كل بطاقة مهارة واحدة.</div></li>
+        <li><div><strong>الاختبار المحاكي:</strong> ${Q.length} سؤالًا في ${EXAM_MINUTES} دقيقة.</div></li>
+        <li><div><strong>تقرير الجاهزية:</strong> نتيجتك في كل مجال مع تغذية راجعة مفصلة.</div></li>
+      </ol>
+    </div>
+    <div class="row"><a class="btn" href="#intro" style="text-decoration:none">ابدئي الاستكشاف</a></div>
+  </section>`;
+}
+
+function renderIntro(){
+  const w = Object.values(DOMAINS).map((d,i)=>`<div style="flex:${d.weight};background:${["var(--accent)","var(--gold)","var(--above)"][i]}">${d.name} ${P(d.weight)}</div>`).join("");
+  return `<section class="view">
+    <header><span class="eyebrow">المرحلة ١ · التعريف بالشهادة</span>
+      <h2>شهادة إدارة المشاريع الاحترافية PMP</h2>
+      <p class="lead">شهادة يمنحها معهد إدارة المشاريع PMI، وتثبت قدرتك على قيادة المشاريع بالأساليب التنبؤية والرشيقة والهجينة.</p>
+    </header>
+    ${videoBlock(VIDEOS.importance)}
+    <div class="facts">
+      <div class="fact"><strong>180</strong><span>سؤالًا في الاختبار الفعلي</span></div>
+      <div class="fact"><strong>240</strong><span>دقيقة زمن الاختبار</span></div>
+      <div class="fact"><strong>3</strong><span>مجالات يُقاس فيها الأداء</span></div>
+    </div>
+    <div class="panel" style="display:grid;gap:10px">
+      <h3 class="sec">أوزان المجالات في الاختبار</h3>
+      <div class="weights" role="img" aria-label="الأشخاص %33، العمليات %41، بيئة الأعمال %26">${w}</div>
+    </div>
+    <div class="row"><a class="btn" href="#register" style="text-decoration:none">التالي: طريقة التسجيل</a></div>
+  </section>`;
+}
+
+function renderRegister(){
+  return `<section class="view">
+    <header><span class="eyebrow">المرحلة ٢ · التسجيل في الاختبار</span>
+      <h2>كيف تسجلين في اختبار PMP؟</h2>
+      <p class="lead">خطوات التسجيل في موقع PMI وحجز موعد الاختبار.</p>
+    </header>
+    ${videoBlock(VIDEOS.register)}
+    <ol class="steps">
+      <li><div><strong>إنشاء حساب في موقع PMI</strong></div></li>
+      <li><div><strong>تقديم طلب الأهلية</strong></div></li>
+      <li><div><strong>دفع رسوم الاختبار</strong></div></li>
+      <li><div><strong>حجز موعد الاختبار</strong></div></li>
+    </ol>
+    <div class="row"><a class="btn" href="#cards" style="text-decoration:none">التالي: البطاقات التعليمية</a></div>
+  </section>`;
+}
+
+function renderCards(){
+  const need = new Set(S.result ? S.result.cardsOrder : []);
+  const tabs = [["people","الأشخاص"],["process","العمليات"],["biz","بيئة الأعمال"],["all","كل البطاقات"]]
+    .concat(S.result && need.size ? [["need","تحتاجينها ("+need.size+")"]] : []);
+  const groups = Object.entries(DOMAINS).map(([k,d]) => {
+    let list = CARDS.filter(c => c.d===k);
+    if(S.cardFilter==="need") list = list.filter(c => need.has(c.code));
+    else if(S.cardFilter!=="all" && S.cardFilter!==k) list = [];
+    if(!list.length) return "";
+    return `<div class="domain-group"><h3>${d.name} <small>${list.length} بطاقات</small></h3>
+      ${list.map(c => `<details class="card${need.has(c.code)?" flag":""}" id="card-${c.code}" ${S.openCard===c.code?"open":""}>
+        <summary><span class="code">${c.code}</span><span class="card-title">${c.title}</span>${need.has(c.code)?'<span class="pill need">تحتاجينها</span>':""}<span class="chev" aria-hidden="true"></span></summary>
+        <div class="card-body">
+          <div class="blk"><b>الفكرة</b><p>${c.idea}</p></div>
+          <div class="blk rule"><b>القاعدة في الاختبار</b><p>${c.rule}</p></div>
+          <div class="blk"><b>مثال</b><p>${c.example}</p></div>
+          <div class="blk trap"><b>الفخ الشائع</b><p>${c.trap}</p></div>
+        </div></details>`).join("")}</div>`;
+  }).join("");
+  return `<section class="view">
+    <header><span class="eyebrow">المرحلة ٣ · التعلّم</span>
+      <h2>البطاقات التعليمية</h2>
+      <p class="lead">15 بطاقة تعليمية تشرح المهارات الخمس عشرة الأساسية.</p>
+    </header>
+    <div class="tabs" role="group" aria-label="تصفية البطاقات">${tabs.map(([k,l])=>`<button class="tab" data-filter="${k}" aria-pressed="${S.cardFilter===k}">${l}</button>`).join("")}</div>
+    ${groups || '<p class="note">لا توجد بطاقات في هذا التصنيف.</p>'}
+    <div class="row">${S.cardFilter==="people" ? '<button class="btn" data-filter="process" data-top="1">التالي: بطاقات العمليات</button>' : S.cardFilter==="process" ? '<button class="btn" data-filter="biz" data-top="1">التالي: بطاقات بيئة الأعمال</button>' : '<a class="btn" href="#exam" style="text-decoration:none">التالي: الاختبار المحاكي</a>'}</div>
+  </section>`;
+}
+
+function renderExamIntro(){
+  return `<section class="view">
+    <header><span class="eyebrow">المرحلة ٤ · الاختبار المحاكي</span>
+      <h2>قبل أن تبدئي الاختبار</h2>
+      <p class="lead">15 سؤالاً تشخيصياً تقيس جاهزيتك.</p>
+    </header>
+    <div class="facts">
+      <div class="fact"><strong>15</strong><span>سؤالًا في 3 مجالات</span></div>
+      <div class="fact"><strong>${EXAM_MINUTES}</strong><span>دقيقة</span></div>
+      <div class="fact"><strong>${P(PASS_PERCENT)}</strong><span>عتبة الجاهزية</span></div>
+    </div>
+    <div class="row"><button class="btn" id="start">ابدئي الاختبار</button></div>
+  </section>`;
+}
+
+function renderExam(){
+  const E = S.exam; if(!E) return renderExamIntro();
+  const i = E.cur, q = Q[i], keys = E.order[i];
+  const answered = Object.keys(E.answers).length;
+  return `<section class="view">
+    <div class="exam-bar">
+      <div class="q-meta"><span>السؤال ${i+1} من ${Q.length}</span><span>·</span><span>${DOMAINS[q.d].name}</span><span>·</span><span>أجبتِ عن ${answered}</span></div>
+      <div class="timer" id="timer" aria-live="off">--:--</div>
+    </div>
+    <div class="dots" role="group" aria-label="التنقل بين الأسئلة">${Q.map((_,k)=>`<button class="dot${E.answers[k]?" ans":""}${k===i?" cur":""}" data-go="${k}">${k+1}</button>`).join("")}</div>
+    <div class="panel" style="display:grid;gap:16px">
+      <p class="q-text">${q.text}</p>
+      <div class="opts" role="radiogroup" aria-label="البدائل">
+        ${keys.map((k,pos)=>`<button class="opt" role="radio" data-pick="${k}" aria-checked="${E.answers[i]===k}"><span class="k">${LETTERS[pos]}</span><span>${q.o[k][0]}</span></button>`).join("")}
+      </div>
+    </div>
+    ${E.confirming ? `<div class="confirm"><strong>${Q.length-answered ? "لديكِ "+(Q.length-answered)+" أسئلة دون إجابة." : "أجبتِ عن كل الأسئلة."} هل تنهين الاختبار؟</strong>
+      <div class="row"><button class="btn" id="finish">نعم، اعرضي النتيجة</button><button class="btn ghost" id="cancel">العودة</button></div></div>` : ""}
+    <div class="row" style="justify-content:space-between">
+      <div class="row"><button class="btn ghost" id="prev" ${i===0?"disabled":""}>السابق</button><button class="btn ghost" id="next" ${i===Q.length-1?"disabled":""}>التالي</button></div>
+      <button class="btn" id="askFinish">إنهاء الاختبار</button>
+    </div>
+  </section>`;
+}
+
+function ring(pct, ok){
+  const r=50, c=2*Math.PI*r, off=c*(1-pct/100);
+  return `<svg class="ring" viewBox="0 0 120 120" role="img" aria-label="${P(pct)}"><circle cx="60" cy="60" r="${r}" fill="none" stroke="var(--sunk)" stroke-width="12"/>
+    <circle cx="60" cy="60" r="${r}" fill="none" stroke="${ok?"var(--above)":"var(--needs)"}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 60 60)"/>
+    <text x="60" y="68" text-anchor="middle" font-size="24">${P(pct)}</text></svg>`;
+}
+
+function renderReport(){
+  const R = S.result;
+  if(!R) return `<section class="view"><header><span class="eyebrow">المرحلة ٥ · تقرير الجاهزية</span><h2>لم تؤدي الاختبار بعد</h2></header><div class="row"><a class="btn" href="#exam" style="text-decoration:none">اذهبي إلى الاختبار</a></div></section>`;
+  const domRows = Object.entries(DOMAINS).map(([k,d]) => {
+    const r = R.dom[k];
+    const cards = r.wrongCards.map(c=>`<button class="chip" data-card="${c}">${c} ${cardByCode[c].title}</button>`).join("");
+    return `<div class="dom"><div class="dom-head"><b>${d.name}</b><span>${r.score} من ${d.max} · <span dir="ltr" style="unicode-bidi:isolate">${P(r.pct)}</span></span></div>
+      <div class="scale">${LEVELS.map(l=>`<div class="${l.id===r.level.id?"hit l-"+l.id:""}">${l.name}</div>`).join("")}</div>
+      ${cards ? `<div class="dom-cards"><span class="note">بطاقات للمراجعة:</span>${cards}</div>` : `<p class="note">ممتاز! أجبتِ عن كل أسئلة هذا المجال صحيحة.</p>`}</div>`;
+  }).join("");
+  const pats = Object.entries(R.misc).filter(([,n])=>n>=3).map(([k,n])=>`<div class="pattern"><strong>نمط متكرر: ${MISC[k].name}</strong><p>${MISC[k].msg.replace("{n}",n)}</p></div>`).join("");
+  const filt = S.reviewFilter;
+  const items = R.items.filter(it => filt==="all" || (filt==="wrong" && it.status!=="ok"));
+  const rv = items.map(it => {
+    const q = Q[it.i];
+    const st = {ok:["صحيحة","ok"], bad:["خاطئة","bad"], skip:["دون إجابة","skip"]}[it.status];
+    return `<div class="rv ${st[1]}"><div class="rv-head"><span class="tag ${st[1]}">${st[0]}</span><span>السؤال ${it.i+1}</span><span>·</span><span>${DOMAINS[q.d].name}</span></div>
+      <p>${q.text}</p>
+      ${it.status==="bad" ? `<p class="yours">إجابتك: ${q.o[it.ans][0]}. ${q.o[it.ans][1]}</p>`:""}
+      <p class="best"><strong>${it.status==="ok"?"إجابتك صحيحة":"الإجابة الأفضل"}:</strong> ${q.o[q.correct][0]}. ${q.o[q.correct][1]}</p>
+      ${it.status!=="ok" ? `<div class="row"><button class="chip" data-card="${q.card}">راجعي البطاقة ${q.card}: ${cardByCode[q.card].title}</button></div>`:""}
+    </div>`;
+  }).join("");
+  return `<section class="view">
+    <header><span class="eyebrow">المرحلة ٥ · تقرير الجاهزية</span><h2>نتيجتك في الاختبار المحاكي</h2></header>
+    <div class="panel verdict ${R.ready?"ok":"no"}">
+      ${ring(R.pct, R.ready)}
+      <div style="display:grid;gap:6px;min-width:0">
+        <h3>${R.ready ? "مؤشر: جاهزة لاختبار PMP" : "مؤشر: لستِ جاهزة بعد"}</h3>
+        <p>درجتك ${R.score} من ${Q.length}.</p>
+      </div>
+    </div>
+    <h3 class="sec">أداؤك في كل مجال</h3>
+    <div class="dom-table">${domRows}</div>
+    ${pats}
+    <h3 class="sec">التغذية الراجعة</h3>
+    <div class="filters"><button class="tab" data-rf="wrong" aria-pressed="${filt==="wrong"}">الخاطئة ودون إجابة</button><button class="tab" data-rf="all" aria-pressed="${filt==="all"}">كل الأسئلة</button></div>
+    <div class="review">${rv}</div>
+    <div class="row"><button class="btn" id="retake">إعادة الاختبار</button></div>
+  </section>`;
+}
+
+/* ================= المنطق ================= */
+function startExam(){
+  S.exam = { order: Q.map(q => shuffle(Object.keys(q.o))), answers:{}, cur:0, endsAt: Date.now()+EXAM_MINUTES*60000, confirming:false };
+  S.exam.timerId = setInterval(tick, 500);
+  render(); tick();
+}
+function tick(){
+  const E = S.exam; if(!E) return;
+  const left = Math.max(0, E.endsAt - Date.now());
+  const el = document.getElementById("timer");
+  if(el){ const m=Math.floor(left/60000), s=Math.floor(left%60000/1000);
+    el.textContent = String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"); el.classList.toggle("low", left<120000); }
+  if(left<=0) finishExam();
+}
+function finishExam(){
+  const E = S.exam; if(!E) return;
+  clearInterval(E.timerId);
+  const dom = {}; Object.keys(DOMAINS).forEach(k => dom[k]={score:0, wrongCards:[]});
+  const misc = {impose:0, ignore:0, escalate:0, surface:0};
+  const items = Q.map((q,i) => {
+    const ans = E.answers[i];
+    const status = !ans ? "skip" : ans===q.correct ? "ok" : "bad";
+    if(status==="ok") dom[q.d].score++; else dom[q.d].wrongCards.push(q.card);
+    if(status==="bad" && q.o[ans][2]) misc[q.o[ans][2]]++;
+    return {i, ans, status};
+  });
+  Object.entries(dom).forEach(([k,r]) => { r.pct = Math.round(r.score/DOMAINS[k].max*100); r.level = levelFor(r.pct); });
+  const score = items.filter(x=>x.status==="ok").length;
+  const pct = Math.round(score/Q.length*100);
+  const passScore = Math.ceil(Q.length*PASS_PERCENT/100);
+  const order = Object.keys(DOMAINS).sort((a,b)=>dom[a].pct-dom[b].pct);
+  S.result = { dom, misc, items, score, pct, ready: score>=passScore, need: Math.max(0,passScore-score),
+    weak: order.filter(k=>dom[k].pct<70).map(k=>DOMAINS[k].name),
+    cardsOrder: order.flatMap(k=>dom[k].wrongCards) };
+  S.exam = null; S.reviewFilter = "wrong";
+  go("report");
+}
+function go(v){ if(location.hash !== "#"+v) location.hash = v; else { S.view=v; S.seen.add(v); render(); } }
+
+function render(){
+  const v = S.view;
+  app.innerHTML = v==="welcome"?renderWelcome(): v==="intro"?renderIntro(): v==="register"?renderRegister(): v==="cards"?renderCards(): v==="exam"?renderExam(): renderReport();
+  document.querySelectorAll("#path a").forEach(a => {
+    const k=a.dataset.v; a.classList.toggle("on", k===v); a.classList.toggle("done", k!==v && (S.seen.has(k) || (k==="report"&&S.result)));
+    if(k===v) a.setAttribute("aria-current","step"); else a.removeAttribute("aria-current");
+  });
+  if(v==="exam" && S.exam) tick();
+  if(v==="cards" && S.openCard){ const el=document.getElementById("card-"+S.openCard); if(el) el.scrollIntoView({block:"center"}); }
+}
+
+app.addEventListener("click", e => {
+  const t = e.target.closest("button,[data-card]"); if(!t) return;
+  if(t.id==="start") return startExam();
+  if(t.id==="retake"){ S.exam=null; return (go("exam"), startExam()); }
+  const E = S.exam;
+  if(t.dataset.pick && E){ E.answers[E.cur]=t.dataset.pick; return render(); }
+  if(t.dataset.go && E){ E.cur=+t.dataset.go; E.confirming=false; return render(); }
+  if(t.id==="prev" && E){ E.cur--; return render(); }
+  if(t.id==="next" && E){ E.cur++; return render(); }
+  if(t.id==="askFinish" && E){ E.confirming=true; return render(); }
+  if(t.id==="cancel" && E){ E.confirming=false; return render(); }
+  if(t.id==="finish") return finishExam();
+  if(t.dataset.filter){ S.cardFilter=t.dataset.filter; S.openCard=null; render(); if(t.dataset.top) window.scrollTo(0,0); return; }
+  if(t.dataset.rf){ S.reviewFilter=t.dataset.rf; return render(); }
+  if(t.dataset.card){ S.openCard=t.dataset.card; S.cardFilter = S.result && S.result.cardsOrder.includes(t.dataset.card) ? "need" : "all"; return go("cards"); }
+});
+window.addEventListener("hashchange", () => {
+  const h = location.hash.slice(1);
+  S.view = VIEWS.includes(h) ? h : "welcome"; S.seen.add(S.view);
+  if(S.view!=="cards") S.openCard=null;
+  render(); window.scrollTo(0,0);
+  if(S.view==="cards" && S.openCard){ const el=document.getElementById("card-"+S.openCard); if(el) el.scrollIntoView({block:"center"}); }
+});
+(function init(){ const h=location.hash.slice(1); S.view = VIEWS.includes(h)?h:"welcome"; S.seen.add(S.view); render(); })();
+</script>
+</body></html>
